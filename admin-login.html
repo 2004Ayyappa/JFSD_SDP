@@ -1,0 +1,92 @@
+<!-- admin-login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Extracurricular Activities</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container">
+            <div class="logo">Extracurricular Manager</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin-login.html">Admin Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admin Login Form -->
+    <section class="container">
+        <h2>Admin Login</h2>
+        <form id="admin-login-form">
+            <label for="admin-username">Username:</label>
+            <input type="text" id="admin-username" name="admin-username" placeholder="Enter admin username" required>
+
+            <label for="admin-password">Password:</label>
+            <input type="password" id="admin-password" name="admin-password" placeholder="Enter admin password" required>
+
+            <button type="submit" class="button button-success">Login</button>
+        </form>
+
+        <!-- Success and Error Messages -->
+        <div id="admin-login-success" class="message success">
+            Login successful! Redirecting to the admin dashboard...
+        </div>
+        <div id="admin-login-error" class="message error">
+            <!-- Error messages will be inserted here dynamically -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color:  #ffbb00; color: #fff; text-align: center; padding: 15px 0;">
+        <p>&copy; 2024 Extracurricular Activities Manager. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Admin Login Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminLoginForm = document.getElementById('admin-login-form');
+            const adminLoginSuccess = document.getElementById('admin-login-success');
+            const adminLoginError = document.getElementById('admin-login-error');
+
+            // Predefined admin credentials
+            const adminCredentials = {
+                username: 'admin',
+                password: 'admin123' // In a real application, never store plain-text passwords
+            };
+
+            adminLoginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get form values
+                const username = document.getElementById('admin-username').value.trim();
+                const password = document.getElementById('admin-password').value;
+
+                // Validate credentials
+                if (username === adminCredentials.username && password === adminCredentials.password) {
+                    // Successful login
+                    adminLoginSuccess.style.display = 'block';
+                    adminLoginError.style.display = 'none';
+
+                    // Optionally, set a session or token in localStorage
+                    localStorage.setItem('isAdminLoggedIn', 'true');
+
+                    // Redirect to admin dashboard after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 2000);
+                } else {
+                    // Failed login
+                    adminLoginError.textContent = "Invalid admin username or password.";
+                    adminLoginError.style.display = 'block';
+                    adminLoginSuccess.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

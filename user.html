@@ -5,23 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - Extracurricular Activities</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        nav { margin-bottom: 20px; }
-        nav a { margin-right: 15px; text-decoration: none; color: #007BFF; }
-        h2 { color: #333; }
-        .section { margin-bottom: 30px; }
-        form { margin-bottom: 20px; }
-        label { display: block; margin-top: 10px; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { padding: 10px 20px; margin-top: 10px; background-color: #17a2b8; color: #fff; border: none; cursor: pointer; }
-        button:hover { background-color: #138496; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .notification { background-color: #ffc107; padding: 10px; margin-top: 10px; border-radius: 5px; }
+        /* Base Styles */
+        body { 
+            font-family: Arial, sans-serif; 
+             
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        nav { 
+            margin-bottom: 20px; 
+            background-color: #007BFF;
+            padding: 20px 20px;
+            border-radius: 5px;
+        }
+
+        nav a { 
+            margin-right: 15px; 
+            text-decoration: none; 
+            color: #fff; 
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover { 
+            color: #d4d4d4; 
+        }
+
+        /* Headings */
+        h2 { 
+            color: #333; 
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+
+        /* Sections */
+        .section { 
+            margin-bottom: 30px; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Forms */
+        form { 
+            margin-bottom: 20px; 
+        }
+
+        label { 
+            display: block; 
+            margin-top: 10px; 
+            font-weight: bold;
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 5px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+        }
+
+        button { 
+            padding: 10px 20px; 
+            margin-top: 10px; 
+            background-color: #17a2b8; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover { 
+            background-color: #138496; 
+        }
+
+        /* Tables */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+        }
+
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+        }
+
+        th { 
+            background-color: #f2f2f2; 
+        }
+
+        /* Notifications */
+        .notification { 
+            background-color: #ffc107; 
+            padding: 15px; 
+            margin-top: 10px; 
+            border-radius: 5px; 
+        }
+
+        .notification strong { 
+            display: block; 
+            margin-bottom: 5px; 
+            color: #856404;
+        }
+
+        /* Success Message */
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px;
+            }
+
+            nav a {
+                display: block;
+                margin: 5px 0;
+            }
+
+            table, thead, tbody, th, td, tr { 
+                display: block; 
+            }
+
+            th { 
+                display: none; 
+            }
+
+            td { 
+                position: relative; 
+                padding-left: 50%; 
+                border: none;
+                border-bottom: 1px solid #ddd; 
+            }
+
+            td::before { 
+                content: attr(data-label); 
+                position: absolute; 
+                left: 15px; 
+                font-weight: bold; 
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav>
         <a href="index.html">Home</a>
         <a href="user.html">Dashboard</a>
@@ -32,7 +175,7 @@
     <!-- Register for Activities -->
     <section class="section" id="register-activities">
         <h3>Register for Activities</h3>
-        <form action="#" method="post">
+        <form id="register-form">
             <label for="activity-select">Select Activity:</label>
             <select id="activity-select" name="activity-select" required>
                 <option value="">Choose an activity</option>
@@ -44,6 +187,10 @@
 
             <button type="submit">Register</button>
         </form>
+        <!-- Success Message -->
+        <div id="success-message" class="success-message">
+            Registered successfully!
+        </div>
     </section>
 
     <!-- Track Participation -->
@@ -61,10 +208,10 @@
             <tbody>
                 <!-- Example Row -->
                 <tr>
-                    <td>Chess Club</td>
-                    <td>Club</td>
-                    <td>2024-04-10</td>
-                    <td>Active</td>
+                    <td data-label="Activity Name">Chess Club</td>
+                    <td data-label="Type">Club</td>
+                    <td data-label="Date Registered">2024-04-10</td>
+                    <td data-label="Status">Active</td>
                 </tr>
                 <!-- More rows will be dynamically added here -->
             </tbody>
@@ -82,5 +229,80 @@
         </div>
         <!-- More notifications can be added dynamically -->
     </section>
+
+    <!-- JavaScript for Handling Form Submission -->
+    <script>
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the form and success message elements
+            const registerForm = document.getElementById('register-form');
+            const successMessage = document.getElementById('success-message');
+
+            // Add submit event listener to the form
+            registerForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+
+                // Get the selected activity
+                const activitySelect = document.getElementById('activity-select');
+                const selectedActivity = activitySelect.value;
+
+                if (selectedActivity) {
+                    // Display the success message
+                    successMessage.style.display = 'block';
+
+                    // Optionally, reset the form
+                    registerForm.reset();
+
+                    // Optionally, add the new participation to the table
+                    addParticipation(selectedActivity);
+                }
+            });
+
+            // Function to add participation to the table
+            function addParticipation(activityName) {
+                const participationTable = document.querySelector('#track-participation tbody');
+
+                // Get current date in YYYY-MM-DD format
+                const currentDate = new Date().toISOString().split('T')[0];
+
+                // Determine the type based on activity name (simple example)
+                let activityType = 'Club';
+                if (activityName.toLowerCase().includes('basketball')) {
+                    activityType = 'Sport';
+                } else if (activityName.toLowerCase().includes('drama')) {
+                    activityType = 'Club';
+                }
+
+                // Create a new table row
+                const newRow = document.createElement('tr');
+
+                // Create table data cells
+                const tdName = document.createElement('td');
+                tdName.setAttribute('data-label', 'Activity Name');
+                tdName.textContent = activityName;
+
+                const tdType = document.createElement('td');
+                tdType.setAttribute('data-label', 'Type');
+                tdType.textContent = activityType;
+
+                const tdDate = document.createElement('td');
+                tdDate.setAttribute('data-label', 'Date Registered');
+                tdDate.textContent = currentDate;
+
+                const tdStatus = document.createElement('td');
+                tdStatus.setAttribute('data-label', 'Status');
+                tdStatus.textContent = 'Active';
+
+                // Append cells to the row
+                newRow.appendChild(tdName);
+                newRow.appendChild(tdType);
+                newRow.appendChild(tdDate);
+                newRow.appendChild(tdStatus);
+
+                // Append the row to the table body
+                participationTable.appendChild(newRow);
+            }
+        });
+    </script>
 </body>
 </html>

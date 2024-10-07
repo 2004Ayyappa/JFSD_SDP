@@ -1,97 +1,425 @@
+<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Extracurricular Activities</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        nav { margin-bottom: 20px; }
-        nav a { margin-right: 15px; text-decoration: none; color: #007BFF; }
-        h2 { color: #333; }
-        form { margin-bottom: 30px; }
-        label { display: block; margin-top: 10px; }
-        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-        button { padding: 10px 20px; margin-top: 10px; background-color: #28a745; color: #fff; border: none; cursor: pointer; }
-        button:hover { background-color: #218838; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
+        /* Additional Styles Specific to admin.html */
+
+        /* Modal Styles for Editing Events */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Success and Error Messages */
+        .message {
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Responsive Modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
     <nav>
-        <a href="index.html">Home</a>
-        <a href="admin.html">Dashboard</a>
+        <div class="container">
+            <div class="logo">Admin Panel</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html">Dashboard</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <h2>Admin Dashboard</h2>
+    <!-- Admin Dashboard -->
+    <section class="container">
+        <h2>Admin Dashboard</h2>
 
-    <!-- Add New Event Form -->
-    <section id="add-event">
-        <h3>Add New Event</h3>
-        <form action="#" method="post">
-            <label for="event-name">Event Name:</label>
-            <input type="text" id="event-name" name="event-name" required>
+        <!-- Add New Event Form -->
+        <section id="add-event">
+            <h3>Add New Event</h3>
+            <form id="add-event-form">
+                <label for="event-name">Event Name:</label>
+                <input type="text" id="event-name" name="event-name" placeholder="e.g., Basketball Tournament" required>
 
-            <label for="event-type">Event Type:</label>
-            <select id="event-type" name="event-type" required>
-                <option value="">Select Type</option>
-                <option value="Club">Club</option>
-                <option value="Sport">Sport</option>
-                <option value="Event">Event</option>
-            </select>
+                <label for="event-type">Event Type:</label>
+                <select id="event-type" name="event-type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Club">Club</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Event">Event</option>
+                </select>
 
-            <label for="event-date">Date:</label>
-            <input type="date" id="event-date" name="event-date" required>
+                <label for="event-date">Date:</label>
+                <input type="date" id="event-date" name="event-date" required>
 
-            <label for="event-description">Description:</label>
-            <textarea id="event-description" name="event-description" rows="4" required></textarea>
+                <label for="event-description">Description:</label>
+                <textarea id="event-description" name="event-description" rows="4" placeholder="Describe the event..." required></textarea>
 
-            <button type="submit">Add Event</button>
-        </form>
+                <button type="submit" class="button button-success">Add Event</button>
+            </form>
+            <!-- Success Message -->
+            <div id="add-success" class="message success">
+                Event added successfully!
+            </div>
+            <!-- Error Message -->
+            <div id="add-error" class="message error">
+                Please fill in all fields correctly.
+            </div>
+        </section>
+
+        <!-- Manage Events Table -->
+        <section id="manage-events">
+            <h3>Manage Events</h3>
+            <table id="events-table">
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Participants</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic Event Rows -->
+                </tbody>
+            </table>
+            <!-- Message when no events are available -->
+            <div id="no-events" class="message error">
+                No events available. Please add an event.
+            </div>
+        </section>
+
+        <!-- Track Participation -->
+        <section id="track-participation">
+            <h3>Track Student Participation</h3>
+            <form action="#" method="get" id="track-form">
+                <label for="student-id">Student ID:</label>
+                <input type="text" id="student-id" name="student-id" placeholder="Enter Student ID" required>
+
+                <button type="submit" class="button">View Participation</button>
+            </form>
+            <!-- Participation details will be displayed here -->
+            <div id="participation-details" class="section">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
     </section>
 
-    <!-- Manage Events Table -->
-    <section id="manage-events">
-        <h3>Manage Events</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Event Name</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Participants</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Example Row -->
-                <tr>
-                    <td>Basketball Tournament</td>
-                    <td>Sport</td>
-                    <td>2024-11-15</td>
-                    <td>20</td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
-                </tr>
-                <!-- More rows will be dynamically added here -->
-            </tbody>
-        </table>
-    </section>
+    <!-- Footer -->
+    <footer style="background-color:  #ffbb00; color: #fff; text-align: center; padding: 15px 0;">
+        <p>&copy; 2024 Extracurricular Activities Manager. All rights reserved.</p>
+    </footer>
 
-    <!-- Track Participation -->
-    <section id="track-participation">
-        <h3>Track Student Participation</h3>
-        <form action="#" method="get">
-            <label for="student-id">Student ID:</label>
-            <input type="text" id="student-id" name="student-id" required>
+    <!-- Edit Event Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h3>Edit Event</h3>
+            <form id="edit-event-form">
+                <input type="hidden" id="edit-event-id">
+                <label for="edit-event-name">Event Name:</label>
+                <input type="text" id="edit-event-name" name="edit-event-name" required>
 
-            <button type="submit">View Participation</button>
-        </form>
-        <!-- Participation details will be displayed here -->
-    </section>
+                <label for="edit-event-type">Event Type:</label>
+                <select id="edit-event-type" name="edit-event-type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Club">Club</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Event">Event</option>
+                </select>
+
+                <label for="edit-event-date">Date:</label>
+                <input type="date" id="edit-event-date" name="edit-event-date" required>
+
+                <label for="edit-event-description">Description:</label>
+                <textarea id="edit-event-description" name="edit-event-description" rows="4" required></textarea>
+
+                <button type="submit" class="button button-success">Save Changes</button>
+            </form>
+            <!-- Success Message -->
+            <div id="edit-success" class="message success">
+                Event updated successfully!
+            </div>
+            <!-- Error Message -->
+            <div id="edit-error" class="message error">
+                Please fill in all fields correctly.
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Handling Admin Functionalities -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const addEventForm = document.getElementById('add-event-form');
+            const eventsTableBody = document.querySelector('#events-table tbody');
+            const addSuccess = document.getElementById('add-success');
+            const addError = document.getElementById('add-error');
+            const noEventsMessage = document.getElementById('no-events');
+
+            const editModal = document.getElementById('edit-modal');
+            const closeModal = document.getElementById('close-modal');
+            const editEventForm = document.getElementById('edit-event-form');
+            const editSuccess = document.getElementById('edit-success');
+            const editError = document.getElementById('edit-error');
+
+            // Initialize Events from localStorage
+            let events = JSON.parse(localStorage.getItem('events')) || [];
+
+            // Function to render events in the table
+            function renderEvents() {
+                eventsTableBody.innerHTML = ''; // Clear existing rows
+
+                if (events.length === 0) {
+                    noEventsMessage.style.display = 'block';
+                } else {
+                    noEventsMessage.style.display = 'none';
+                    events.forEach((event, index) => {
+                        const tr = document.createElement('tr');
+
+                        // Event Name
+                        const tdName = document.createElement('td');
+                        tdName.setAttribute('data-label', 'Event Name');
+                        tdName.textContent = event.name;
+                        tr.appendChild(tdName);
+
+                        // Event Type
+                        const tdType = document.createElement('td');
+                        tdType.setAttribute('data-label', 'Type');
+                        tdType.textContent = event.type;
+                        tr.appendChild(tdType);
+
+                        // Event Date
+                        const tdDate = document.createElement('td');
+                        tdDate.setAttribute('data-label', 'Date');
+                        tdDate.textContent = event.date;
+                        tr.appendChild(tdDate);
+
+                        // Participants
+                        const tdParticipants = document.createElement('td');
+                        tdParticipants.setAttribute('data-label', 'Participants');
+                        tdParticipants.textContent = event.participants || 0; // Default to 0
+                        tr.appendChild(tdParticipants);
+
+                        // Actions
+                        const tdActions = document.createElement('td');
+                        tdActions.setAttribute('data-label', 'Actions');
+
+                        // Edit Button
+                        const editBtn = document.createElement('a');
+                        editBtn.href = '#';
+                        editBtn.classList.add('button', 'button-secondary');
+                        editBtn.textContent = 'Edit';
+                        editBtn.style.marginRight = '5px';
+                        editBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            openEditModal(index);
+                        });
+                        tdActions.appendChild(editBtn);
+
+                        // Delete Button
+                        const deleteBtn = document.createElement('a');
+                        deleteBtn.href = '#';
+                        deleteBtn.classList.add('button', 'button-danger');
+                        deleteBtn.textContent = 'Delete';
+                        deleteBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            deleteEvent(index);
+                        });
+                        tdActions.appendChild(deleteBtn);
+
+                        tr.appendChild(tdActions);
+
+                        eventsTableBody.appendChild(tr);
+                    });
+                }
+            }
+
+            // Function to add a new event
+            addEventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById('event-name').value.trim();
+                const type = document.getElementById('event-type').value;
+                const date = document.getElementById('event-date').value;
+                const description = document.getElementById('event-description').value.trim();
+
+                // Simple validation
+                if (name === '' || type === '' || date === '' || description === '') {
+                    addError.style.display = 'block';
+                    addSuccess.style.display = 'none';
+                    return;
+                }
+
+                // Create event object
+                const newEvent = {
+                    name: name,
+                    type: type,
+                    date: date,
+                    description: description,
+                    participants: 0 // Default participants
+                };
+
+                // Add to events array
+                events.push(newEvent);
+
+                // Save to localStorage
+                localStorage.setItem('events', JSON.stringify(events));
+
+                // Reset form
+                addEventForm.reset();
+
+                // Show success message
+                addSuccess.style.display = 'block';
+                addError.style.display = 'none';
+
+                // Re-render events
+                renderEvents();
+
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    addSuccess.style.display = 'none';
+                }, 3000);
+            });
+
+            // Function to delete an event
+            function deleteEvent(index) {
+                if (confirm(`Are you sure you want to delete the event "${events[index].name}"?`)) {
+                    events.splice(index, 1);
+                    localStorage.setItem('events', JSON.stringify(events));
+                    renderEvents();
+                }
+            }
+
+            // Function to open edit modal
+            function openEditModal(index) {
+                editModal.style.display = 'block';
+
+                // Populate form with existing event data
+                document.getElementById('edit-event-id').value = index;
+                document.getElementById('edit-event-name').value = events[index].name;
+                document.getElementById('edit-event-type').value = events[index].type;
+                document.getElementById('edit-event-date').value = events[index].date;
+                document.getElementById('edit-event-description').value = events[index].description;
+
+                // Hide previous messages
+                editSuccess.style.display = 'none';
+                editError.style.display = 'none';
+            }
+
+            // Function to close edit modal
+            closeModal.addEventListener('click', function() {
+                editModal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', function(event) {
+                if (event.target == editModal) {
+                    editModal.style.display = 'none';
+                }
+            });
+
+            // Handle edit event form submission
+            editEventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const index = document.getElementById('edit-event-id').value;
+                const name = document.getElementById('edit-event-name').value.trim();
+                const type = document.getElementById('edit-event-type').value;
+                const date = document.getElementById('edit-event-date').value;
+                const description = document.getElementById('edit-event-description').value.trim();
+
+                // Simple validation
+                if (name === '' || type === '' || date === '' || description === '') {
+                    editError.style.display = 'block';
+                    editSuccess.style.display = 'none';
+                    return;
+                }
+
+                // Update event
+                events[index] = {
+                    ...events[index],
+                    name: name,
+                    type: type,
+                    date: date,
+                    description: description
+                };
+
+                // Save to localStorage
+                localStorage.setItem('events', JSON.stringify(events));
+
+                // Re-render events
+                renderEvents();
+
+                // Show success message
+                editSuccess.style.display = 'block';
+                editError.style.display = 'none';
+
+                // Hide success message after 3 seconds and close modal
+                setTimeout(() => {
+                    editSuccess.style.display = 'none';
+                    editModal.style.display = 'none';
+                }, 3000);
+            });
+
+            // Initial Render
+            renderEvents();
+        });
+    </script>
 </body>
 </html>

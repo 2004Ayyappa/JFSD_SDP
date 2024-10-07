@@ -1,35 +1,160 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Extracurricular Activities</title>
-    <!-- You can link to an external CSS file here -->
+    <title>Extracurricular Activities Manager</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        h1 { color: #333; }
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: #fff;
-            background-color: #007BFF;
-            border: none;
+        /* Additional Styles Specific to index.html */
+
+        /* Hero Section */
+        .hero {
+            background: url('images/_c35eeb24-a0ab-4934-b344-60864f712950.jpeg') no-repeat center center/cover;
+            color: #0e0f0e;
+            padding: 100px 20px;
+            text-align: center;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(239, 242, 245, 0.411); /* Overlay with semi-transparent color */
             border-radius: 5px;
         }
-        .button:hover { background-color: #0056b3; }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .feature {
+            background-color: #efe6e6;
+            padding: 20px;
+            border-radius: 5px;
+            width: 300px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .feature h3 {
+            margin-bottom: 15px;
+            color: #007BFF;
+        }
+
+        .feature p {
+            color: #555;
+        }
+
+        /* Footer Specific to index.html */
+        footer {
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature {
+                width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Extracurricular Activities Manager</h1>
-        <p>Manage and participate in various student activities seamlessly.</p>
-        <a href="admin.html" class="button">Admin Login</a>
-        <a href="user.html" class="button">Student Login</a>
-    </div>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container">
+            <div class="logo">Student Extracurricular Activities Management System</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="user-login.html">User Login</a></li>
+                <li><a href="user-signup.html">User Signup</a></li>
+                <li><a href="admin-login.html">Admin Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to the Extracurricular Activities Manager</h1>
+            <p>Empowering students to engage, participate, and excel in various extracurricular activities. Whether you're a student looking to join clubs, sports, and events or an admin aiming to manage and track student participation, our platform offers a seamless experience for all.</p>
+            <a href="user-login.html" class="button button-success">Get Started</a>
+            <a href="user-signup.html" class="button button-secondary">Signup Now</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container features">
+        <div class="feature">
+            <h3>For Students</h3>
+            <p>Register for activities, track your participation, and stay updated with upcoming events all in one place.</p>
+            <a href="user-login.html" class="button">Login</a>
+        </div>
+        <div class="feature">
+            <h3>For Administrators</h3>
+            <p>Manage extracurricular schedules, track student involvement, and update events effortlessly.</p>
+            <a href="admin-login.html" class="button">Admin Login</a>
+        </div>
+        <div class="feature">
+            <h3>Stay Informed</h3>
+            <p>Receive real-time notifications about new events, updates, and important announcements.</p>
+            <a href="user-login.html" class="button">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Extracurricular Activities Manager. All rights reserved.</p>
+    </footer>
 </body>
 </html>
