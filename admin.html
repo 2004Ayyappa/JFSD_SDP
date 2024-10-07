@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Extracurricular Activities</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #007BFF; }
+        h2 { color: #333; }
+        form { margin-bottom: 30px; }
+        label { display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        button { padding: 10px 20px; margin-top: 10px; background-color: #28a745; color: #fff; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin.html">Dashboard</a>
+    </nav>
+
+    <h2>Admin Dashboard</h2>
+
+    <!-- Add New Event Form -->
+    <section id="add-event">
+        <h3>Add New Event</h3>
+        <form action="#" method="post">
+            <label for="event-name">Event Name:</label>
+            <input type="text" id="event-name" name="event-name" required>
+
+            <label for="event-type">Event Type:</label>
+            <select id="event-type" name="event-type" required>
+                <option value="">Select Type</option>
+                <option value="Club">Club</option>
+                <option value="Sport">Sport</option>
+                <option value="Event">Event</option>
+            </select>
+
+            <label for="event-date">Date:</label>
+            <input type="date" id="event-date" name="event-date" required>
+
+            <label for="event-description">Description:</label>
+            <textarea id="event-description" name="event-description" rows="4" required></textarea>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </section>
+
+    <!-- Manage Events Table -->
+    <section id="manage-events">
+        <h3>Manage Events</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Participants</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td>Basketball Tournament</td>
+                    <td>Sport</td>
+                    <td>2024-11-15</td>
+                    <td>20</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+                <!-- More rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Track Participation -->
+    <section id="track-participation">
+        <h3>Track Student Participation</h3>
+        <form action="#" method="get">
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" name="student-id" required>
+
+            <button type="submit">View Participation</button>
+        </form>
+        <!-- Participation details will be displayed here -->
+    </section>
+</body>
+</html>

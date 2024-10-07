@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Extracurricular Activities</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #007BFF; }
+        h2 { color: #333; }
+        .section { margin-bottom: 30px; }
+        form { margin-bottom: 20px; }
+        label { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { padding: 10px 20px; margin-top: 10px; background-color: #17a2b8; color: #fff; border: none; cursor: pointer; }
+        button:hover { background-color: #138496; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .notification { background-color: #ffc107; padding: 10px; margin-top: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="user.html">Dashboard</a>
+    </nav>
+
+    <h2>Student Dashboard</h2>
+
+    <!-- Register for Activities -->
+    <section class="section" id="register-activities">
+        <h3>Register for Activities</h3>
+        <form action="#" method="post">
+            <label for="activity-select">Select Activity:</label>
+            <select id="activity-select" name="activity-select" required>
+                <option value="">Choose an activity</option>
+                <option value="Chess Club">Chess Club</option>
+                <option value="Basketball">Basketball</option>
+                <option value="Drama Club">Drama Club</option>
+                <!-- Add more activities as needed -->
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <!-- Track Participation -->
+    <section class="section" id="track-participation">
+        <h3>Your Participation</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Activity Name</th>
+                    <th>Type</th>
+                    <th>Date Registered</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Row -->
+                <tr>
+                    <td>Chess Club</td>
+                    <td>Club</td>
+                    <td>2024-04-10</td>
+                    <td>Active</td>
+                </tr>
+                <!-- More rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Event Notifications -->
+    <section class="section" id="event-notifications">
+        <h3>Upcoming Events</h3>
+        <div class="notification">
+            <strong>Basketball Tournament:</strong> November 15, 2024 at the main gymnasium.
+        </div>
+        <div class="notification">
+            <strong>Drama Club Play:</strong> December 5, 2024 at the auditorium.
+        </div>
+        <!-- More notifications can be added dynamically -->
+    </section>
+</body>
+</html>
