@@ -1,0 +1,124 @@
+
+/* Login Form Container */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: #8ec0c8f7;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 162px;
+  z-index: 10;
+  position: relative;
+  margin-left: 20%;
+}
+
+.login-form h2 {
+  font-size: 2rem;
+  text-align: center;
+  color: #4A90E2;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #4A90E2;
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4A90E2;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #083c72;
+}
+
+.footer {
+  background-color: #4A90E2;
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    height: 80vh;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .login-container {
+    width: 90%;
+    margin-top: -80px;
+  }
+
+  .login-form h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-group input {
+    font-size: 1rem;
+  }
+
+  .login-button {
+    font-size: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .login-button {
+    font-size: 1rem;
+  }
+}
