@@ -17,7 +17,7 @@ const AdminLogin = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/admin/login', {
+      const response = await fetch('https://student-extracurricular-activities.up.railway.app/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

@@ -40,7 +40,7 @@ const AdminDashboard = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/events');
+      const response = await fetch('https://student-extracurricular-activities.up.railway.app/api/events');
       const data = await response.json();
       setEvents(data);
       setLoading(false);
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
 
   const fetchAllParticipants = async () => {
     try {
-      const response = await fetch('http://localhost:8080/student/get');
+      const response = await fetch('https://student-extracurricular-activities.up.railway.app/student/get');
       const data = await response.json();
       setParticipants(data);
       setLoading(false);
@@ -86,8 +86,8 @@ const AdminDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = editEventId
-      ? `http://localhost:8080/api/events/${editEventId}`
-      : 'http://localhost:8080/api/events';
+      ? `https://student-extracurricular-activities.up.railway.app/api/events/${editEventId}`
+      : 'https://student-extracurricular-activities.up.railway.app/api/events';
     const method = editEventId ? 'PUT' : 'POST';
 
     const formData = new FormData();
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/events/${id}`, {
+      const response = await fetch(`https://student-extracurricular-activities.up.railway.app/api/events/${id}`, {
         method: 'DELETE',
       });
 
@@ -146,7 +146,7 @@ const AdminDashboard = () => {
 
   const handleRemoveParticipant = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/student/deleteStudent/${id}`, {
+      const response = await fetch(`https://student-extracurricular-activities.up.railway.app/student/deleteStudent/${id}`, {
           method: "DELETE",
       });
       if (response.ok) {
